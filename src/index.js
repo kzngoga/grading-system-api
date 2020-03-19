@@ -20,7 +20,7 @@ app.use(fileupload({ useTempFiles: true }));
 app.use('/api/v1', routes);
 
 app.get('/', (req, res) => {
-  res.send('Welcome');
+  res.send('Welcome, Your Are on Grading System API');
 });
 
 const PORT = process.env.PORT || 8000;
