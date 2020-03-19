@@ -22,3 +22,11 @@ export const isAdminDos = async (req, res, next) => {
   }
   return next();
 };
+
+export const isStatusOn = async (req, res, next) => {
+  req.user = await decodeToken(req, res);
+  if (req.user.status !== 'ON') {
+    return out(res, 403, 'You don\'t have access to do that action', null, 'FORBIDDEN');
+  }
+  return next();
+};
