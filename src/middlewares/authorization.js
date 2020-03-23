@@ -30,3 +30,19 @@ export const isStatusOn = async (req, res, next) => {
   }
   return next();
 };
+
+export const isDOS = async (req, res, next) => {
+  req.user = await decodeToken(req, res);
+  if (req.user.role !== 'DOS') {
+    return out(res, 403, 'You don\'t have access to do that action', null, 'FORBIDDEN');
+  }
+  return next();
+};
+
+export const isSuperAdmin = async (req, res, next) => {
+  req.user = await decodeToken(req, res);
+  if (req.user.role !== 'superadmin') {
+    return out(res, 403, 'You don\'t have access to do that action', null, 'FORBIDDEN');
+  }
+  return next();
+};
