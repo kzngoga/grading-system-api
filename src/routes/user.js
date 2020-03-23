@@ -7,14 +7,16 @@ const router = Router();
 
 router.get('/', Authorization.isStatusOn, Authorization.isAdminDos, Controller.getAllUsers);
 
-router.post('/new', Authorization.isStatusOn, Authorization.isAdminDos, Validations.addUser, Controller.signUp);
+router.post('/new', Authorization.isSuperAdmin, Validations.addUser, Controller.signUp);
 router.post('/login', Controller.userLogin);
+router.post('/superadmin/login', Controller.superAdmin);
 
 router.patch('/change-password', Authorization.isStatusOn, Authorization.isAdminDos, Validations.changePassword, Controller.changePassword);
 router.patch('/reset-password', Controller.resetPassword);
 router.patch('/new-password', Controller.newPassword);
 router.patch('/update', Authorization.isStatusOn, Authorization.isAdminDos, Validations.updateUser, Controller.updateUser);
-router.patch('/delete', Authorization.isStatusOn, Authorization.isAdminDos, Controller.deleteUser);
+router.patch('/deactivate', Authorization.isSuperAdmin, Controller.deactivateUser);
+router.patch('/activate', Authorization.isSuperAdmin, Controller.activateUser);
 
 
 export default router;

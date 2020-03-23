@@ -4,6 +4,7 @@ import mailer from '../helpers/mailer';
 import out from '../helpers/response';
 import { generate, check } from '../helpers/bcrypt';
 import { sign, verify } from '../helpers/jwt';
+import config from '../config';
 
 class UserController {
   static async signUp(req, res) {
@@ -23,7 +24,7 @@ class UserController {
       const EmailStatus = await mailer(['sign-up', {
         email,
         genpwd,
-        body: process.env.USER_WEB
+        body: process.env.GRADING_WEB
       }, email
       ]);
       if (EmailStatus) return out(res, 500, EmailStatus, null, 'SERVER_ERROR');
@@ -51,6 +52,17 @@ class UserController {
         email: user.email, id: user._id, role: user.role, status: user.status
       });
       return out(res, 200, 'Logged in successfully', user);
+    } catch (error) {
+      return out(res, 500, error.message || error, null, 'SERVER_ERROR');
+    }
+  }
+
+  static async superAdmin(req, res) {
+    try {
+      const { username, password } = req.body;
+      if (username !== config.SPNAME || password !== config.SPPASS) return out(res, 400, 'Username or Password is incorrect', null, 'AUTHENTICATION_ERROR');
+      const token = await sign({ username, password, role: 'superadmin' });
+      return out(res, 200, 'Logged in successfully', token);
     } catch (error) {
       return out(res, 500, error.message || error, null, 'SERVER_ERROR');
     }
@@ -139,17 +151,33 @@ class UserController {
   }
 
 
-  static async deleteUser(req, res) {
+  static async deactivateUser(req, res) {
     try {
       const { users: usersId } = req.body;
       req.body.status = 'OFF';
       const user = await UserService.findUser({ _id: usersId });
       if (user.length === 0 || user.status === 'OFF') return out(res, 404, 'User not found', null, 'NOT_FOUND');
       const updateUser = await UserService.delChangeUser(usersId, { status: req.body.status });
-      if (!updateUser) return out(res, 500, 'Can not delete User', null, 'NOT_FOUND');
+      if (!updateUser) return out(res, 500, 'Can not deactivate User', null, 'NOT_FOUND');
       updateUser.password = undefined;
       updateUser.__v = undefined;
-      return out(res, 200, 'User Deleted', updateUser);
+      return out(res, 200, 'User Deactivated', updateUser);
+    } catch (error) {
+      return out(res, 500, error.message || error, null, 'SERVER_ERROR');
+    }
+  }
+
+  static async activateUser(req, res) {
+    try {
+      const { users: usersId } = req.body;
+      req.body.status = 'ON';
+      const user = await UserService.findUser({ _id: usersId });
+      if (user.length === 0 || user.status === 'ON') return out(res, 404, 'User not found', null, 'NOT_FOUND');
+      const updateUser = await UserService.delChangeUser(usersId, { status: req.body.status });
+      if (!updateUser) return out(res, 500, 'Can not activate User', null, 'NOT_FOUND');
+      updateUser.password = undefined;
+      updateUser.__v = undefined;
+      return out(res, 200, 'User activated', updateUser);
     } catch (error) {
       return out(res, 500, error.message || error, null, 'SERVER_ERROR');
     }
