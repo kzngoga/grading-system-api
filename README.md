@@ -17,6 +17,9 @@ SMTP_HOST=
 SMTP_PORT=
 SENDGRID_USER=
 SENDGRID_PASS=
+SPNAME=
+SPPASS=
+GRADING_WEB=
 ```
 
 ## Routes List
@@ -48,6 +51,14 @@ SENDGRID_PASS=
 - [Update Teacher](#18-update-teacher-patch-request)
 - [Deactivate Teacher](#19-deactivate-teacher-patch-request)
 - [Activate Teacher](#20-activate-teacher-patch-request)
+
+### Course
+- [Add Course](#21-add-course-post-request)
+- [Get All Courses](#22-get-all-courses-get-request)
+- [Get Single Course](#23-get-single-course-get-request)
+- [Update Course](#24-update-course-patch-request)
+- [Deactivate Course](#25-deactivate-course-patch-request)
+- [Activate Course](#26-activate-course-patch-request)
 
 ## All Routes
 
@@ -699,6 +710,178 @@ Response:
         "address": "Nyarugenge",
         "mobileNo": "+250780000000",
         "department": "5e73e34fb400e72344a5cf04"
+    }
+}
+```
+
+### 21. Add Course: POST Request
+
+End Point
+```
+/api/v1/course/new
+```
+
+Body: 
+```json
+{
+	"name": "Photoshop",
+	"totalMarks": "50",
+	"department": "5e73e2aa5aaaaf0f4013e9fb"
+}
+```
+
+Response: 
+```json
+{
+    "status": 201,
+    "message": "Registered Successfully",
+    "data": {
+        "status": "ON",
+        "_id": "5e7a5983546c2b2d6c804acf",
+        "name": "Photoshop",
+        "totalMarks": "50",
+        "department": "5e73e2aa5aaaaf0f4013e9fb"
+    }
+}
+```
+
+### 22. Get All Courses: GET Request
+
+End Point
+```
+/api/v1/course
+```
+
+Response:
+```json
+{
+    "status": 200,
+    "message": "Courses Retrieved",
+    "data": [
+        {
+            "status": "ON",
+            "_id": "5e7a58d39fa95213d86c2aba",
+            "name": "Algorithm",
+            "totalMarks": "100",
+            "department": "5e73e34fb400e72344a5cf04"
+        },
+        {
+            "status": "ON",
+            "_id": "5e7a5983546c2b2d6c804acf",
+            "name": "Photoshop",
+            "totalMarks": "50",
+            "department": "5e73e2aa5aaaaf0f4013e9fb"
+        }
+    ]
+}
+```
+
+### 23. Get Single Course: GET Request
+
+End Point
+```
+/api/v1/course/:id
+```
+
+Response
+```json
+{
+    "status": 200,
+    "message": "Course Found",
+    "data": {
+        "status": "ON",
+        "_id": "5e7a58d39fa95213d86c2aba",
+        "name": "Algorithm",
+        "totalMarks": "100",
+        "department": "5e73e34fb400e72344a5cf04"
+    }
+}
+```
+
+### 24. Update Course: PATCH Request
+
+End Point
+```
+/api/v1/course/update
+```
+
+Body
+```json
+{
+	"course": "5e7a5983546c2b2d6c804acf",
+	"totalMarks": "70"
+}
+```
+
+Response
+```json
+{
+    "status": 200,
+    "message": "Course Updated",
+    "data": {
+        "status": "ON",
+        "_id": "5e7a5983546c2b2d6c804acf",
+        "name": "Photoshop",
+        "totalMarks": "70",
+        "department": "5e73e2aa5aaaaf0f4013e9fb"
+    }
+}
+```
+
+### 25. Deactivate Course: PATCH Request
+
+End Point
+```
+/api/v1/course/deactivate
+```
+
+Body: 
+```json
+{
+	"course": "5e7a5983546c2b2d6c804acf"
+}
+```
+
+Response:
+```json
+{
+    "status": 200,
+    "message": "Course Deactivated",
+    "data": {
+        "status": "OFF",
+        "_id": "5e7a5983546c2b2d6c804acf",
+        "name": "Photoshop",
+        "totalMarks": "70",
+        "department": "5e73e2aa5aaaaf0f4013e9fb"
+    }
+}
+```
+
+### 26. Activate Course: PATCH Request
+
+End Point
+```
+/api/v1/course/activate
+```
+
+Body: 
+```json
+{
+	"course": "5e7a5983546c2b2d6c804acf"
+}
+```
+
+Response:
+```json
+{
+    "status": 200,
+    "message": "Course Activated",
+    "data": {
+        "status": "ON",
+        "_id": "5e7a5983546c2b2d6c804acf",
+        "name": "Photoshop",
+        "totalMarks": "70",
+        "department": "5e73e2aa5aaaaf0f4013e9fb"
     }
 }
 ```
