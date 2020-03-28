@@ -60,6 +60,13 @@ GRADING_WEB=
 - [Deactivate Course](#25-deactivate-course-patch-request)
 - [Activate Course](#26-activate-course-patch-request)
 
+### Student
+- [Add Student](#27-add-student-post-request)
+- [Get All Students](#28-get-all-students-get-request)
+- [Get Single Student](#29-get-single-student-get-request)
+- [Update Student](#30-update-student-patch-request)
+- [Deactivate Student](#31-deactivate-student-patch-request)
+
 ## All Routes
 
 ### 1. Get All Users: GET Request
@@ -886,6 +893,214 @@ Response:
 }
 ```
 
+### 27. Add Student: POST Request
+End Point
+```
+/api/v1/student/new
+```
+Body:
+```json
+{
+	"firstname": "Kenny",
+	"lastname": "Lazer",
+	"email": "kennylazer10@gmail.com",
+	"gender": "M",
+	"address": "Kicukiro",
+	"mobileNo": "078000000",
+	"intake": "September Intake",
+	"department": "5e73e34fb400e72344a5cf04",
+	"shift": "09:00-11:00"
+}
+```
+
+Response:
+```json
+{
+    "status": 201,
+    "message": "Registered successfully",
+    "data": {
+        "status": "ON",
+        "_id": "5e7fa0ac70e42c05947df5bd",
+        "firstname": "Kenny",
+        "lastname": "Lazer",
+        "email": "kennylazer10@gmail.com",
+        "gender": "M",
+        "address": "Kicukiro",
+        "mobileNo": "078000000",
+        "intake": "September Intake",
+        "department": "5e73e34fb400e72344a5cf04",
+        "shift": "09:00-11:00",
+        "startMonth": "9",
+        "regNum": "GRAD0003V/SEP2020",
+        "__v": 0
+    }
+}
+```
+
+### 28. Get All Students: GET Request
+End point
+```
+/api/v1/student
+```
+
+Response: 
+```json
+{
+    "status": 200,
+    "message": "Student(s) Found",
+    "data": [
+        {
+            "status": "ON",
+            "_id": "5e7f9fd971b94c0628a8a92a",
+            "firstname": "Kenny",
+            "lastname": "Lazer",
+            "email": "kennylazer10@gmail.com",
+            "gender": "M",
+            "address": "Kicukiro",
+            "mobileNo": "078000000",
+            "intake": "March Intake",
+            "department": "5e73e34fb400e72344a5cf04",
+            "shift": "09:00-11:00",
+            "startMonth": "3",
+            "regNum": "GRAD0001V/MAR2020"
+        },
+        {
+            "status": "ON",
+            "_id": "5e7fa09470e42c05947df5bc",
+            "firstname": "Kenny",
+            "lastname": "Lazer",
+            "email": "kennylazer10@gmail.com",
+            "gender": "M",
+            "address": "Kicukiro",
+            "mobileNo": "078000000",
+            "intake": "March Intake",
+            "department": "5e73e34fb400e72344a5cf04",
+            "shift": "09:00-11:00",
+            "startMonth": "3",
+            "regNum": "GRAD0002V/MAR2020"
+        },
+        {
+            "status": "ON",
+            "_id": "5e7fa0ac70e42c05947df5bd",
+            "firstname": "Kenny",
+            "lastname": "Lazer",
+            "email": "kennylazer10@gmail.com",
+            "gender": "M",
+            "address": "Kicukiro",
+            "mobileNo": "078000000",
+            "intake": "September Intake",
+            "department": "5e73e34fb400e72344a5cf04",
+            "shift": "09:00-11:00",
+            "startMonth": "9",
+            "regNum": "GRAD0003V/SEP2020"
+        }
+    ]
+}
+```
+
+### 29. Get Single Student: GET request
+End Point
+```
+/api/v1/student/:id
+```
+
+Response:
+```json
+{
+    "status": 200,
+    "message": "Student Found",
+    "data": {
+        "status": "ON",
+        "_id": "5e7f9fd971b94c0628a8a92a",
+        "firstname": "Kenny",
+        "lastname": "Lazer",
+        "email": "kennylazer10@gmail.com",
+        "gender": "M",
+        "address": "Kicukiro",
+        "mobileNo": "078000000",
+        "intake": "March Intake",
+        "department": "5e73e34fb400e72344a5cf04",
+        "shift": "09:00-11:00",
+        "startMonth": "3",
+        "regNum": "GRAD0001V/MAR2020"
+    }
+}
+```
+
+### 30. Update Student: PATCH Request
+End Point
+```
+/api/v1/student/update
+```
+Body:
+```json
+{
+	"student": "5e7f9fd971b94c0628a8a92a",
+	"address": "Kabuga"
+}
+```
+
+Response: 
+```json
+{
+    "status": 200,
+    "message": "Student Updated",
+    "data": {
+        "status": "ON",
+        "_id": "5e7f9fd971b94c0628a8a92a",
+        "firstname": "Kenny",
+        "lastname": "Lazer",
+        "email": "kennylazer10@gmail.com",
+        "gender": "M",
+        "address": "Kabuga",
+        "mobileNo": "078000000",
+        "intake": "March Intake",
+        "department": "5e73e34fb400e72344a5cf04",
+        "shift": "09:00-11:00",
+        "startMonth": "3",
+        "regNum": "GRAD0001V/MAR2020",
+        "__v": 0
+    }
+}
+```
+
+### 31. Deactivate Student: PATCH Request
+End Point:
+```
+/api/v1/student/deactivate
+```
+
+Body:
+```json
+{
+	"student": "5e7f9fd971b94c0628a8a92a",
+	"month": "9"
+}
+```
+
+Response:
+```json
+{
+    "status": 200,
+    "message": "Student Deactivated",
+    "data": {
+        "status": "OFF",
+        "_id": "5e7f9fd971b94c0628a8a92a",
+        "firstname": "Kenny",
+        "lastname": "Lazer",
+        "email": "kennylazer10@gmail.com",
+        "gender": "M",
+        "address": "Kabuga",
+        "mobileNo": "078000000",
+        "intake": "March Intake",
+        "department": "5e73e34fb400e72344a5cf04",
+        "shift": "09:00-11:00",
+        "startMonth": "3",
+        "regNum": "GRAD0001V/MAR2020",
+        "__v": 0
+    }
+}
+```
 
 ## Contributors
 

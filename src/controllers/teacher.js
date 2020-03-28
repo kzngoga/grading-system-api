@@ -44,7 +44,7 @@ class TeacherController {
       teacher.password = undefined;
       teacher.__v = undefined;
       teacher._doc.token = await sign({
-        email: teacher.email, id: teacher._id, status: teacher.status
+        email: teacher.email, id: teacher._id, status: teacher.status, role: 'teacher'
       });
       return out(res, 200, 'Logged In Successfully', teacher);
     } catch (error) {
@@ -77,10 +77,10 @@ class TeacherController {
     try {
       const { department } = req.body;
       const { teacher: teacherId } = req.body;
-      const departmentExist = req.body.department ? await DepartmentService.findDepartment({ _id: department }) : ('');
-      if (!departmentExist && departmentExist === null) return out(res, 403, 'Invalid Department id', null, 'BAD_REQUEST');
       const teacher = await TeacherService.findTeacher({ _id: teacherId });
       if (!teacher) return out(res, 404, 'No Teacher Found', null, 'NOT_FOUND');
+      const departmentExist = req.body.department ? await DepartmentService.findDepartment({ _id: department }) : ('');
+      if (!departmentExist && departmentExist === null) return out(res, 403, 'Invalid Department id', null, 'BAD_REQUEST');
       const updateTeacher = await TeacherService.updateTeacher(teacherId, req.body);
       if (!updateTeacher) return out(res, 500, 'Can Not Update Teacher', null, 'NOT_FOUND');
       updateTeacher.password = undefined;
