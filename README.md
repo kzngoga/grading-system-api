@@ -67,6 +67,10 @@ GRADING_WEB=
 - [Update Student](#30-update-student-patch-request)
 - [Deactivate Student](#31-deactivate-student-patch-request)
 
+### Marks
+- [Add Marks](#32-add-marks-post-request)
+- [Get Marks](#33-get-marks-get-request)
+
 ## All Routes
 
 ### 1. Get All Users: GET Request
@@ -1099,6 +1103,68 @@ Response:
         "regNum": "GRAD0001V/MAR2020",
         "__v": 0
     }
+}
+```
+
+### 32. Add Marks: POST Request
+
+End Point
+```
+/api/v1/marks/new
+```
+
+Body
+```json
+{
+	"student": "5e7f9fd971b94c0628a8a92a",
+	"course": "5e7a58d39fa95213d86c2aba",
+	"marksTest": "90",
+	"marksExam": "80",
+	"verdict": "Pass"
+}
+```
+
+Response
+```json
+{
+    "status": 201,
+    "message": "Marks Registered!!!",
+    "data": {
+        "_id": "5e80ef051010911dd80e6a1e",
+        "student": "5e7f9fd971b94c0628a8a92a",
+        "course": "5e7a58d39fa95213d86c2aba",
+        "marksTest": 90,
+        "marksExam": 80,
+        "verdict": "Pass",
+        "total": 170,
+        "__v": 0
+    }
+}
+```
+
+### 33. Get Marks: GET Request
+
+End Point
+```
+/api/v1/marks
+```
+
+Response
+```json
+{
+    "status": 200,
+    "message": "Marks Retrieved",
+    "data": [
+        {
+            "_id": "5e80ef051010911dd80e6a1e",
+            "student": "5e7f9fd971b94c0628a8a92a",
+            "course": "5e7a58d39fa95213d86c2aba",
+            "marksTest": 90,
+            "marksExam": 80,
+            "verdict": "Pass",
+            "total": 170
+        }
+    ]
 }
 ```
 
