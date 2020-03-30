@@ -22,7 +22,7 @@ class CourseController {
     try {
       const courses = await CourseService.getAllCourses();
       if (courses.length === 0) return out(res, 404, 'No Course Found', null, 'NOT_FOUND');
-      return out(res, 200, 'Courses Retrieved!', courses);
+      return out(res, 200, 'Courses Retrieved', courses);
     } catch (error) {
       return out(res, 500, error.message || error, null, 'SERVER_ERROR');
     }
