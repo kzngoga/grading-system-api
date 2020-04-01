@@ -1168,6 +1168,44 @@ Response
 }
 ```
 
+### 34. Student Login: POST request
+
+End Point
+```
+/api/v1/student/login
+```
+
+Body
+```json
+{
+	"regNum": "GRAD0001V/SEP2020"
+}
+```
+
+Response
+```json
+{
+    "status": 200,
+    "message": "Logged In Successfully",
+    "data": {
+        "status": "ON",
+        "_id": "5e84e9ccde2bec2184ca0daa",
+        "firstname": "Kenny",
+        "lastname": "Lazer",
+        "email": "kennylazer10@gmail.com",
+        "gender": "M",
+        "address": "Kicukiro",
+        "mobileNo": "078000000",
+        "intake": "September Intake",
+        "department": "5e8234031e4cd504540cdb24",
+        "shift": "09:00-11:00",
+        "startMonth": "9",
+        "regNum": "GRAD0001V/SEP2020",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdG5hbWUiOiJLZW5ueSIsImlhdCI6MTU4NTc3MDA0MX0.QRtK_tGCDAmr34IFSkW_0anr870_V5EVomobXwf0jiw"
+    }
+}
+```
+
 ## Contributors
 
 - Kenny Ruzindana

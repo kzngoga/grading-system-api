@@ -2,6 +2,7 @@ import StudentService from '../database/services/student';
 import DepartmentService from '../database/services/department';
 import out from '../helpers/response';
 import genRom from '../helpers/generateRoman';
+import { sign } from '../helpers/jwt';
 
 
 class StudentController {
@@ -122,6 +123,20 @@ class StudentController {
       if (month === '9' && student.intake === 'September Intake') return out(res, 500, 'Can not deactivate Student, He Started in September Intake');
       const updateStudent = await StudentService.updateStudent(student, req.body);
       return out(res, 200, 'Student Deactivated', updateStudent);
+    } catch (error) {
+      return out(res, 500, error.message || error, null, 'SERVER_ERROR');
+    }
+  }
+
+  static async studentLogin(req, res) {
+    try {
+      const { regNum } = req.body;
+      const student = await StudentService.getAStudent({ regNum });
+      if (!student || student.status === 'OFF') return out(res, 404, 'Student not Found', null, 'NOT_FOUND');
+      student._doc.token = await sign({
+        firstname: student.firstname, role: student.role
+      });
+      return out(res, 200, 'Logged In Successfully', student);
     } catch (error) {
       return out(res, 500, error.message || error, null, 'SERVER_ERROR');
     }
