@@ -34,7 +34,11 @@ GRADING_WEB=
 - [Activate User](#7-activate-user-patch-request)
 
 ### Search
-- [Search User](#8-search-get-request)
+- [Search User](#8-search-user-get-request)
+- [Search Department](#35-search-department-get-request)
+- [Search Course](#36-search-course-get-request)
+- [Search Student](#37-search-student-get-request)
+- [Search Teacher](#38-search-teacher-get-request)
 
 ### Department
 - [Get All Departments](#9-get-departments-get-request)
@@ -66,6 +70,7 @@ GRADING_WEB=
 - [Get Single Student](#29-get-single-student-get-request)
 - [Update Student](#30-update-student-patch-request)
 - [Deactivate Student](#31-deactivate-student-patch-request)
+- [Student Login](#34-student-login-post-request)
 
 ### Marks
 - [Add Marks](#32-add-marks-post-request)
@@ -318,7 +323,7 @@ Response:
 }
 ```
 
-### 8. Search: GET Request
+### 8. Search User: GET Request
 
 End Point:
 ```
@@ -1205,6 +1210,131 @@ Response
     }
 }
 ```
+
+### 35. Search Department: GET Request
+
+End Point:
+```
+/api/v1/search/departments/?[parameters]
+```
+Parameters:
+- `q` : the payload to search by.
+- `limit` : number of records to query
+- `page` : page number
+
+*Example search query: `http://localhost:8000/api/v1/search/departments?q=sof&page=1&limit=10`*
+
+Response:
+```json
+{
+    "status": 200,
+    "message": "Results retrieved",
+    "data": [
+        {
+            "status": "ON",
+            "_id": "5e8234031e4cd504540cdb24",
+            "name": "Software"
+        }
+    ]
+}
+```
+
+### 36. Search Course: GET Request
+
+End Point:
+```
+/api/v1/search/courses/?[parameters]
+```
+Parameters:
+- `q` : the payload to search by.
+- `limit` : number of records to query
+- `page` : page number
+
+*Example search query: `http://localhost:8000/api/v1/search/courses?q=alg&page=1&limit=10`*
+
+Response
+```json
+{
+    "status": 200,
+    "message": "Course Found",
+    "data": {
+        "status": "ON",
+        "_id": "5e7a58d39fa95213d86c2aba",
+        "name": "Algorithm",
+        "totalMarks": "100",
+        "department": "5e73e34fb400e72344a5cf04"
+    }
+}
+```
+
+### 37. Search Student: GET Request
+
+End Point:
+```
+/api/v1/search/students/?[parameters]
+```
+Parameters:
+- `q` : the payload to search by.
+- `limit` : number of records to query
+- `page` : page number
+
+*Example search query: `http://localhost:8000/api/v1/search/students?q=ken&page=1&limit=10`*
+
+Response
+```json
+{
+    "status": 200,
+    "message": "Student Found",
+    "data": {
+        "status": "ON",
+        "_id": "5e7f9fd971b94c0628a8a92a",
+        "firstname": "Kenny",
+        "lastname": "Lazer",
+        "email": "kennylazer10@gmail.com",
+        "gender": "M",
+        "address": "Kicukiro",
+        "mobileNo": "078000000",
+        "intake": "March Intake",
+        "department": "5e73e34fb400e72344a5cf04",
+        "shift": "09:00-11:00",
+        "startMonth": "3",
+        "regNum": "GRAD0001V/MAR2020"
+    }
+}
+```
+
+### 38. Search Teacher: GET Request
+
+End Point:
+```
+/api/v1/search/teachers/?[parameters]
+```
+Parameters:
+- `q` : the payload to search by.
+- `limit` : number of records to query
+- `page` : page number
+
+*Example search query: `http://localhost:8000/api/v1/search/teachers?q=uw&page=1&limit=10`*
+
+Response
+```json
+{
+    "status": 200,
+    "message": "Teacher Found",
+    "data": {
+        "status": "ON",
+        "_id": "5e78f8e87cf9250b608401c8",
+        "firstname": "Oliva",
+        "lastname": "Uwera",
+        "email": "olivauw@gmail.com",
+        "gender": "F",
+        "address": "Nyarugenge",
+        "mobileNo": "+250780000000",
+        "department": "5e73e2aa5aaaaf0f4013e9fb"
+    }
+}
+```
+
 
 ## Contributors
 
