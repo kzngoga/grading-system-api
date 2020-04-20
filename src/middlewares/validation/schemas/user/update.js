@@ -9,8 +9,6 @@ export default Joi.object().keys({
     .error(() => 'Enter a valid Email. E.g: mugishadavid250@gmail.com'),
   gender: Joi.string().valid('M', 'F')
     .error(() => 'Enter a valid gender value, Ex: M or F'),
-  role: Joi.string().valid('Admin', 'DOS')
-    .error(() => 'Enter a valid role value, Ex: Admin or DOS'),
   address: Joi.string().min(3).max(25)
     .error(() => 'Enter a valid Address. E.g: Kicukiro'),
   mobileNo: Joi.string().min(3).max(25)

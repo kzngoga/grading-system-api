@@ -62,8 +62,6 @@ class UserController {
       const { username, password } = req.body;
       if (username !== config.SPNAME || password !== config.SPPASS) return out(res, 400, 'Username or Password is incorrect', null, 'AUTHENTICATION_ERROR');
       const token = await sign({ username, password, role: 'superadmin' });
-      // token._doc.username = config.SPNAME;
-      // token._doc.role = 'superadmin';
       return out(res, 200, 'Logged in successfully', { username: config.SPNAME, role: 'superadmin', token });
     } catch (error) {
       return out(res, 500, error.message || error, null, 'SERVER_ERROR');
@@ -180,6 +178,21 @@ class UserController {
       updateUser.password = undefined;
       updateUser.__v = undefined;
       return out(res, 200, 'User activated', updateUser);
+    } catch (error) {
+      return out(res, 500, error.message || error, null, 'SERVER_ERROR');
+    }
+  }
+
+  static async updateRole(req, res) {
+    try {
+      const { id } = req.params;
+      const user = await UserService.findUser({ _id: id });
+      if (!user || user.status === 'OFF') return out(res, 404, 'User not found', null, 'NOT_FOUND');
+      const updateUser = await UserService.updateUser(id, { role: req.body.role });
+      if (!updateUser) return out(res, 500, 'Can not change User Role', null, 'NOT_FOUND');
+      updateUser.password = undefined;
+      updateUser.__v = undefined;
+      return out(res, 200, 'User Role Updated', updateUser);
     } catch (error) {
       return out(res, 500, error.message || error, null, 'SERVER_ERROR');
     }

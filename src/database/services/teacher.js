@@ -13,7 +13,7 @@ class TeacherService {
     try {
       return await Teacher.findOne(params)
         .populate({
-          path: 'departments',
+          path: 'department',
           select: 'name'
         });
     } catch (error) {
@@ -24,6 +24,10 @@ class TeacherService {
   static async getAllTeachers() {
     try {
       return await Teacher.find()
+        .populate({
+          path: 'department',
+          select: 'name'
+        })
         .select('-__v -password');
     } catch (error) {
       throw error;
