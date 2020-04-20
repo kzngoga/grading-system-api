@@ -64,9 +64,9 @@ class TeacherController {
 
   static async getATeacher(req, res) {
     try {
-      const teacher = await TeacherService.findTeacher({ _id: req.params.id });
+      const teacher = await TeacherService.getSingleTeacher({ _id: req.params.id });
       if (!teacher) return out(res, 404, 'No Teacher Found', null, 'NOT_FOUND');
-      teacher.password = undefined;
+      teacher[0].password = undefined;
       return out(res, 200, 'Teacher Found', teacher);
     } catch (error) {
       return out(res, 500, error.message || error, null, 'SERVER_ERROR');

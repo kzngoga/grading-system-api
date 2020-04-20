@@ -9,12 +9,12 @@ import marks from './marks';
 
 const router = Router();
 
-router.use('/user', user);
+router.use('/users', user);
 router.use('/search', search);
-router.use('/department', department);
-router.use('/teacher', teacher);
-router.use('/course', course);
-router.use('/student', student);
+router.use('/departments', department);
+router.use('/teachers', teacher);
+router.use('/courses', course);
+router.use('/students', student);
 router.use('/marks', marks);
 
 export default router;

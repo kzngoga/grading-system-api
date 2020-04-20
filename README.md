@@ -32,6 +32,7 @@ GRADING_WEB=
 - [Update User](#5-update-user-patch-request)
 - [Deactivate User](#6-deactivate-user-patch-request)
 - [Activate User](#7-activate-user-patch-request)
+- [Update User Role](#39-update-user-role-patch-request)
 
 ### Search
 - [Search User](#8-search-user-get-request)
@@ -567,7 +568,7 @@ Response:
 
 End Point:
 ```
-/api/v1/teacher
+/api/v1/teachers
 ```
 
 Response:
@@ -578,25 +579,17 @@ Response:
     "data": [
         {
             "status": "ON",
-            "_id": "5e7748c3ab1db61ebc9e4afa",
-            "firstname": "Alphonse",
-            "lastname": "Mbarushimana",
-            "email": "dhdhdh@gmail.com",
+            "_id": "5e823b4803b4bf21a03fb74d",
+            "firstname": "Jean Pierre",
+            "lastname": "Shyaka",
+            "email": "shyaka10@gmail.com",
             "gender": "F",
             "address": "Nyarugenge",
             "mobileNo": "+250780000000",
-            "department": "5e73e34fb400e72344a5cf04"
-        },
-        {
-            "status": "ON",
-            "_id": "5e78f8e87cf9250b608401c8",
-            "firstname": "Oliva",
-            "lastname": "Uwera",
-            "email": "iirirri@gmail.com",
-            "gender": "F",
-            "address": "Nyarugenge",
-            "mobileNo": "+250780000000",
-            "department": "5e73e2aa5aaaaf0f4013e9fb"
+            "department": {
+                "_id": "5e823b2d03b4bf21a03fb74c",
+                "name": "Geography"
+            }
         }
     ]
 }
@@ -606,7 +599,7 @@ Response:
 
 End Point
 ```
-/api/v1/teacher/:id
+/api/v1/teachers/:id
 ```
 
 Response
@@ -614,17 +607,23 @@ Response
 {
     "status": 200,
     "message": "Teacher Found",
-    "data": {
-        "status": "ON",
-        "_id": "5e78f8e87cf9250b608401c8",
-        "firstname": "Oliva",
-        "lastname": "Uwera",
-        "email": "olivauw@gmail.com",
-        "gender": "F",
-        "address": "Nyarugenge",
-        "mobileNo": "+250780000000",
-        "department": "5e73e2aa5aaaaf0f4013e9fb"
-    }
+    "data": [
+        {
+            "status": "ON",
+            "_id": "5e823b4803b4bf21a03fb74d",
+            "firstname": "Oliva",
+            "lastname": "Uwera",
+            "email": "ol10@gmail.com",
+            "gender": "F",
+            "address": "Nyarugenge",
+            "mobileNo": "+250780000000",
+            "department": {
+                "_id": "5e823b2d03b4bf21a03fb74c",
+                "name": "Geography"
+            },
+            "__v": 0
+        }
+    ]
 }
 ```
 
@@ -949,7 +948,7 @@ Response:
 ### 28. Get All Students: GET Request
 End point
 ```
-/api/v1/student
+/api/v1/students
 ```
 
 Response: 
@@ -968,7 +967,10 @@ Response:
             "address": "Kicukiro",
             "mobileNo": "078000000",
             "intake": "March Intake",
-            "department": "5e73e34fb400e72344a5cf04",
+             "department": {
+                "_id": "5e8234031e4cd504540cdb24",
+                "name": "Software"
+            },
             "shift": "09:00-11:00",
             "startMonth": "3",
             "regNum": "GRAD0001V/MAR2020"
@@ -1010,7 +1012,7 @@ Response:
 ### 29. Get Single Student: GET request
 End Point
 ```
-/api/v1/student/:id
+/api/v1/students/:id
 ```
 
 Response:
@@ -1028,7 +1030,10 @@ Response:
         "address": "Kicukiro",
         "mobileNo": "078000000",
         "intake": "March Intake",
-        "department": "5e73e34fb400e72344a5cf04",
+        "department": {
+            "_id": "5e8234031e4cd504540cdb24",
+            "name": "Software"
+        },
         "shift": "09:00-11:00",
         "startMonth": "3",
         "regNum": "GRAD0001V/MAR2020"
@@ -1331,6 +1336,39 @@ Response
         "address": "Nyarugenge",
         "mobileNo": "+250780000000",
         "department": "5e73e2aa5aaaaf0f4013e9fb"
+    }
+}
+```
+
+### 39. Update User Role: PATCH Request
+
+End Point
+```
+/api/v1/user/role/update/:id
+```
+
+Body:
+```json
+{
+	"role": "Admin"
+}
+```
+
+Response:
+```json
+{
+    "status": 200,
+    "message": "User Role Updated",
+    "data": {
+        "status": "ON",
+        "_id": "5e822cfd67d8342f00ae7913",
+        "firstname": "David",
+        "lastname": "Mugisha",
+        "gender": "M",
+        "email": "kennylazer10@gmail.com",
+        "address": "Gasabo",
+        "role": "Admin",
+        "mobileNo": "078000000"
     }
 }
 ```

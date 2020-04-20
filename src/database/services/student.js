@@ -12,6 +12,10 @@ class StudentService {
   static async getAllStudents() {
     try {
       return await Student.find()
+        .populate({
+          path: 'department',
+          select: 'name'
+        })
         .select('-__v');
     } catch (error) {
       throw error;
@@ -21,6 +25,10 @@ class StudentService {
   static async getAStudent(params) {
     try {
       return await Student.findOne(params)
+        .populate({
+          path: 'department',
+          select: 'name'
+        })
         .select('-__v');
     } catch (error) {
       throw error;
