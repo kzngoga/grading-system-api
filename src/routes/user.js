@@ -5,7 +5,7 @@ import * as Authorization from '../middlewares/authorization';
 
 const router = Router();
 
-router.get('/', Authorization.isStatusOn, Authorization.isSuperAdmin, Controller.getAllUsers);
+router.get('/', Authorization.isSuperAdmin, Controller.getAllUsers);
 
 router.post('/new', Authorization.isSuperAdmin, Validations.addUser, Controller.signUp);
 router.post('/login', Controller.userLogin);
