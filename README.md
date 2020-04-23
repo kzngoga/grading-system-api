@@ -33,6 +33,7 @@ GRADING_WEB=
 - [Deactivate User](#6-deactivate-user-patch-request)
 - [Activate User](#7-activate-user-patch-request)
 - [Update User Role](#39-update-user-role-patch-request)
+- [Get Single User](#40-get-single-user-get-request)
 
 ### Search
 - [Search User](#8-search-user-get-request)
@@ -1369,6 +1370,33 @@ Response:
         "address": "Gasabo",
         "role": "Admin",
         "mobileNo": "078000000"
+    }
+}
+```
+
+### 40. Get Single User: GET Request
+
+End point
+```
+/api/v1/users/:id
+```
+
+Response
+```json
+{
+    "status": 200,
+    "message": "User Retrieved",
+    "data": {
+        "status": "ON",
+        "_id": "5e822cfd67d8342f00ae7913",
+        "firstname": "David",
+        "lastname": "Mugisha",
+        "gender": "M",
+        "email": "kennylazer10@gmail.com",
+        "address": "Gasabo",
+        "role": "Admin",
+        "mobileNo": "078000000",
+        "__v": 0
     }
 }
 ```

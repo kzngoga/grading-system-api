@@ -197,6 +197,18 @@ class UserController {
       return out(res, 500, error.message || error, null, 'SERVER_ERROR');
     }
   }
+
+  static async getSingleUser(req, res) {
+    try {
+      const { id } = req.params;
+      const user = await UserService.findUser({ _id: id });
+      if (!user || user.status === 'OFF') return out(res, 404, 'User not found', null, 'NOT_FOUND');
+      user.password = undefined;
+      return out(res, 200, 'User Retrieved', user);
+    } catch (error) {
+      return out(res, 500, error.message || error, null, 'SERVER_ERROR');
+    }
+  }
 }
 
 export default UserController;
