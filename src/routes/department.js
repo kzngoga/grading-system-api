@@ -8,6 +8,7 @@ const router = Router();
 router.get('/', Authorization.isDOS, Controller.getAllDepartments);
 
 router.post('/new', Authorization.isDOS, Validations.addDepartment, Controller.addDepartment);
+
 router.patch('/update', Authorization.isDOS, Validations.updateDepartment, Controller.updateDepartment);
 router.patch('/deactivate', Authorization.isDOS, Controller.deactivateDepartment);
 router.patch('/activate', Authorization.isDOS, Controller.activateDepartment);
