@@ -161,7 +161,9 @@ class UserController {
       req.body.status = 'OFF';
       const user = await UserService.findUser({ _id: usersId });
       if (user.length === 0 || user.status === 'OFF') return out(res, 404, 'User not found', null, 'NOT_FOUND');
-      const updateUser = await UserService.delChangeUser(usersId, { status: req.body.status });
+      const updateUser = await UserService.delChangeUser(
+        { _id: usersId }, { status: req.body.status }
+      );
       if (!updateUser) return out(res, 500, 'Can not deactivate User', null, 'NOT_FOUND');
       updateUser.password = undefined;
       updateUser.__v = undefined;
@@ -177,7 +179,9 @@ class UserController {
       req.body.status = 'ON';
       const user = await UserService.findUser({ _id: usersId });
       if (user.length === 0 || user.status === 'ON') return out(res, 404, 'User not found', null, 'NOT_FOUND');
-      const updateUser = await UserService.delChangeUser(usersId, { status: req.body.status });
+      const updateUser = await UserService.delChangeUser(
+        { _id: usersId }, { status: req.body.status }
+      );
       if (!updateUser) return out(res, 500, 'Can not activate User', null, 'NOT_FOUND');
       updateUser.password = undefined;
       updateUser.__v = undefined;
@@ -192,7 +196,7 @@ class UserController {
       const { id } = req.params;
       const user = await UserService.findUser({ _id: id });
       if (!user || user.status === 'OFF') return out(res, 404, 'User not found', null, 'NOT_FOUND');
-      const updateUser = await UserService.updateUser(id, { role: req.body.role });
+      const updateUser = await UserService.updateUser({ _id: id }, { role: req.body.role });
       if (!updateUser) return out(res, 500, 'Can not change User Role', null, 'NOT_FOUND');
       updateUser.password = undefined;
       updateUser.__v = undefined;
