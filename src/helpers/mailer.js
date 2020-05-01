@@ -26,6 +26,10 @@ const mailer = async (emailToSend) => {
         template = '../public/templates/resetPassword.ejs';
         subject = 'Password Reset';
         break;
+      case 'teacher-sign-up':
+        template = '../public/templates/teacherSignUp.ejs';
+        subject = 'Login Info';
+        break;
       default:
         template = '';
     }
