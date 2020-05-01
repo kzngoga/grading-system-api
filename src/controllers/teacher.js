@@ -9,7 +9,9 @@ import mailer from '../helpers/mailer';
 class TeacherController {
   static async addTeacher(req, res) {
     try {
-      const { email, department } = req.body;
+      const {
+        email, department, firstname, lastname
+      } = req.body;
       const teacherDuplicate = await TeacherService.findTeacher({ email });
       if (teacherDuplicate) return out(res, 409, 'Teacher Already Registered', null, 'CONFLICT_ERROR');
       const departmentExist = await DepartmentService.findDepartment({ _id: department });
@@ -20,9 +22,11 @@ class TeacherController {
       const createdTeacher = await TeacherService.addTeacher(req.body);
       createdTeacher.password = undefined;
       createdTeacher.__v = undefined;
-      const EmailStatus = await mailer(['sign-up', {
+      const EmailStatus = await mailer(['teacher-sign-up', {
         email,
         genpwd,
+        firstname,
+        lastname,
         body: process.env.GRADING_WEB
       }, email
       ]);

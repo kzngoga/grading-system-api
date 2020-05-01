@@ -9,7 +9,9 @@ import config from '../config';
 class UserController {
   static async signUp(req, res) {
     try {
-      const { email } = req.body;
+      const {
+        email, firstname, lastname, role
+      } = req.body;
       const userDuplicate = await UserService.findUser({ email });
       if (userDuplicate) {
         const message = 'Admin already registered';
@@ -24,6 +26,9 @@ class UserController {
       const EmailStatus = await mailer(['sign-up', {
         email,
         genpwd,
+        firstname,
+        lastname,
+        role,
         body: process.env.GRADING_WEB
       }, email
       ]);
@@ -150,7 +155,6 @@ class UserController {
     }
   }
 
-
   static async deactivateUser(req, res) {
     try {
       const { users: usersId } = req.body;
@@ -210,5 +214,4 @@ class UserController {
     }
   }
 }
-
 export default UserController;
